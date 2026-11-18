@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Part of Flowra. See LICENSE file for full copyright and licensing details. -->
+<odoo>
+    <record id="flowra_connection_view_form" model="ir.ui.view">
+        <field name="name">flowra.connection.form</field>
+        <field name="model">flowra.connection</field>
+        <field name="arch" type="xml">
+            <form string="Flowra connection" create="false" delete="false">
+                <header>
+                    <button name="action_connect" type="object" string="Connect to Flowra" class="btn-primary" invisible="connected"/>
+                    <button name="action_connect" type="object" string="Reconnect" invisible="not connected"/>
+                    <button name="action_disconnect" type="object" string="Disconnect" invisible="not connected"
+                            confirm="Disconnect from Flowra? Flowra pauses this database's source and the Flowra user's API key is deleted. Your data in Odoo is not changed."/>
+                </header>
+                <sheet>
+                    <div class="alert alert-warning" role="alert" invisible="not last_error">
+                        <field name="last_error" readonly="1"/>
+                    </div>
+                    <div class="alert alert-warning" role="alert" invisible="not map_warning">
+                        <field name="map_warning" readonly="1"/>
+                    </div>
+                    <group invisible="not connected">
+                        <field name="workspace_name" string="Flowra workspace" readonly="1"/>
+                        <field name="source_name" string="Source in Flowra" readonly="1"/>
+                        <field name="connected_at" string="Connected at (UTC)" readonly="1"/>
+                        <field name="chat_enabled" string="Chat allowed" readonly="1"/>
+                    </group>
+                    <div invisible="connected">
+                        <p>Connect this database to Flowra in one click. You approve it in Flowra; this app then
+                            creates an API key for a dedicated <b>Flowra</b> user and sends it to Flowra directly.
+                            No password or key is shown or typed.</p>
+                        <p class="text-muted">The Flowra user is an internal user with read access to sales,
+                            purchases, inventory and invoicing, and can create draft purchase orders, activities and
+                            tasks. Writes from Flowra stay off until a Flowra admin turns them on.</p>
+                    </div>
+                    <field name="connected" invisible="1"/>
+                    <field name="app_url" invisible="1"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_flowra_connection" model="ir.actions.act_window">
+        <field name="name">Flowra connection</field>
+        <field name="res_model">flowra.connection</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+    </record>
+</odoo>

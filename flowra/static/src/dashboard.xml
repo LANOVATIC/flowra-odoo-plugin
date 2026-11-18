@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Part of Flowra. See LICENSE file for full copyright and licensing details. -->
+<templates xml:space="preserve">
+    <t t-name="flowra.Dashboard">
+        <div class="o_flowra_dashboard h-100 overflow-auto p-4">
+            <div class="d-flex align-items-center mb-3">
+                <h2 class="mb-0 me-auto">Flowra</h2>
+                <button class="btn btn-secondary me-2" t-on-click="() => this.load(true)" t-att-disabled="state.loading">Refresh</button>
+                <a t-if="state.data and state.data.status" class="btn btn-primary" t-att-href="state.data.status.flowra_url" target="_blank" rel="noopener noreferrer">Open Flowra</a>
+            </div>
+            <div t-if="state.failed" class="alert alert-danger" role="alert" t-esc="state.failed"/>
+            <t t-if="state.data">
+                <div t-if="!state.data.connected" class="alert alert-info" role="status">
+                    This database is not connected to Flowra.
+                    <a t-if="state.data.is_admin" href="#" t-on-click.prevent="() => this.open('flowra.action_flowra_connection')">Connect it</a>
+                    <span t-else="">Ask an administrator to connect it under Flowra → Connection.</span>
+                </div>
+                <t t-else="">
+                    <div t-if="state.data.error" class="alert alert-warning" role="alert" t-esc="state.data.error"/>
+                    <div t-if="state.data.status and state.data.status.map_warning" class="alert alert-warning" role="alert" t-esc="state.data.status.map_warning"/>
+                    <div class="row g-3">
+                        <div class="col-12 col-md-6 col-xl-3">
+                            <div class="card h-100"><div class="card-body">
+                                <h5 class="card-title">Connection</h5>
+                                <div>Workspace: <b t-esc="state.data.workspace_name"/></div>
+                                <div>Source: <span t-esc="state.data.source_name"/></div>
+                                <div t-if="state.data.status">Active in Flowra: <b t-esc="state.data.status.source_active ? 'Yes' : 'Paused'"/></div>
+                                <a t-if="state.data.status" class="card-link" t-att-href="state.data.status.source_url" target="_blank" rel="noopener noreferrer">Source in Flowra</a>
+                            </div></div>
+                        </div>
+                        <div class="col-12 col-md-6 col-xl-3" t-if="state.data.status">
+                            <div class="card h-100"><div class="card-body">
+                                <h5 class="card-title">Data sync</h5>
+                                <div>Last sync: <b t-esc="syncLabel(state.data.status.sync.state)"/></div>
+                                <div>When: <span t-esc="when(state.data.status.sync.at)"/></div>
+                                <div t-if="state.data.status.sync.rows_loaded !== null">Rows loaded: <span t-esc="state.data.status.sync.rows_loaded"/></div>
+                            </div></div>
+                        </div>
+                        <div class="col-12 col-md-6 col-xl-3" t-if="state.data.status">
+                            <div class="card h-100"><div class="card-body">
+                                <h5 class="card-title">Forecasts</h5>
+                                <div>State: <b t-esc="state.data.status.ml.state"/></div>
+                                <div>Last trained: <span t-esc="when(state.data.status.ml.last_trained_at)"/></div>
+                            </div></div>
+                        </div>
+                        <div class="col-12 col-md-6 col-xl-3">
+                            <div class="card h-100"><div class="card-body">
+                                <h5 class="card-title">In this database</h5>
+                                <div>Flowra draft purchase orders: <b t-esc="state.data.local.draft_pos"/></div>
+                                <div>Open Flowra signals: <b t-esc="state.data.local.open_signals"/></div>
+                                <div t-if="state.data.status">Purchase orders sent by Flowra: <span t-esc="state.data.status.pos_pushed"/></div>
+                                <a href="#" class="card-link" t-on-click.prevent="() => this.open('flowra.action_flowra_signals')">Signals</a>
+                            </div></div>
+                        </div>
+                    </div>
+                    <t t-if="state.data.status">
+                        <h4 class="mt-4">Skills</h4>
+                        <table class="table table-sm o_flowra_skills">
+                            <tbody>
+                                <tr t-foreach="state.data.status.skills" t-as="skill" t-key="skill.key">
+                                    <td t-esc="skillLabel(skill.key)"/>
+                                    <td><span t-att-class="'badge ' + (skill.state === 'on' ? 'text-bg-success' : 'text-bg-light')" t-esc="stateLabel(skill.state)"/></td>
+                                    <td><a t-att-href="skill.setup_url" target="_blank" rel="noopener noreferrer">Set up in Flowra</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </t>
+                </t>
+            </t>
+        </div>
+    </t>
+</templates>

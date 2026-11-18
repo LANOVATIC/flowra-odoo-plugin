@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Part of Flowra. See LICENSE file for full copyright and licensing details. -->
+<odoo>
+    <record id="action_flowra_dashboard" model="ir.actions.client">
+        <field name="name">Flowra</field>
+        <field name="tag">flowra.dashboard</field>
+    </record>
+    <record id="action_flowra_chat" model="ir.actions.client">
+        <field name="name">Flowra chat</field>
+        <field name="tag">flowra.chat</field>
+    </record>
+</odoo>

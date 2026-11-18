@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Part of Flowra. See LICENSE file for full copyright and licensing details. -->
+<odoo>
+    <!-- Who sees the Flowra chat. Odoo decides who sees it; Flowra decides what each person may
+         read, through their own Flowra account. -->
+    <record id="group_flowra_chat" model="res.groups">
+        <field name="name">Flowra: chat</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- Held only by the dedicated Flowra user: the key to the Flowra bridge (flowra.bridge). -->
+    <record id="group_flowra_service" model="res.groups">
+        <field name="name">Flowra: integration user</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+</odoo>
