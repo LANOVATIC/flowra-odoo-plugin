@@ -39,7 +39,7 @@
                         <div class="col-12 col-md-6 col-xl-3" t-if="state.data.status">
                             <div class="card h-100"><div class="card-body">
                                 <h5 class="card-title">Forecasts</h5>
-                                <div>State: <b t-esc="state.data.status.ml.state"/></div>
+                                <div>State: <b t-esc="mlLabel(state.data.status.ml.state)"/></div>
                                 <div>Last trained: <span t-esc="when(state.data.status.ml.last_trained_at)"/></div>
                             </div></div>
                         </div>

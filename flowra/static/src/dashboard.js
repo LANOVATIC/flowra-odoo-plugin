@@ -19,6 +19,11 @@ const SKILL_LABELS = {
     simulator: "Simulator",
 };
 const STATE_LABELS = { on: "On", off: "Not set up", available: "Available" };
+// Same words as the PrestaShop and WooCommerce dashboards (ML health states, `MLHealthState`).
+const ML_LABELS = {
+    healthy: "Up to date", training: "Running now", stale: "Out of date",
+    degraded: "Partly up to date", failed: "Last run failed", no_data: "Waiting for data",
+};
 const SYNC_LABELS = { never: "Never", queued: "Queued", running: "Running", success: "Succeeded", failed: "Failed" };
 
 /**
@@ -61,6 +66,10 @@ export class FlowraDashboard extends Component {
 
     stateLabel(state) {
         return STATE_LABELS[state] || state;
+    }
+
+    mlLabel(state) {
+        return ML_LABELS[state] || ML_LABELS.no_data;
     }
 
     syncLabel(state) {
