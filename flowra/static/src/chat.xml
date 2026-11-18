@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Part of Flowra. See LICENSE file for full copyright and licensing details. -->
+<templates xml:space="preserve">
+    <t t-name="flowra.ChatPage">
+        <div class="o_flowra_chat_page h-100 d-flex flex-column">
+            <t t-if="state.config and state.config.allowed">
+                <div class="d-flex align-items-center gap-2 px-3 py-2 border-bottom">
+                    <span class="me-auto text-muted">Sign in with your own Flowra account. Flowra decides what you can read.</span>
+                    <button t-if="state.config.mode !== 'bubble'" class="btn btn-sm btn-secondary" t-on-click="() => this.setMode('bubble')">Also show as a bubble</button>
+                    <button t-if="state.config.mode === 'bubble'" class="btn btn-sm btn-secondary" t-on-click="() => this.setMode('page')">Hide the bubble</button>
+                </div>
+                <div t-if="!state.config.host_allowed" class="alert alert-warning m-3" role="alert">
+                    Flowra has not allowed this Odoo address to show the chat yet. If the frame stays empty, a Flowra admin adds this address under Settings → Embed.
+                </div>
+                <iframe t-ref="frame" class="o_flowra_chat_frame flex-grow-1 border-0" t-att-src="state.config.src" title="Flowra chat" allow="clipboard-write" referrerpolicy="strict-origin-when-cross-origin" t-on-load="onFrameLoad"/>
+            </t>
+            <div t-elif="state.config" class="alert alert-info m-4" role="status">
+                <t t-if="state.config.reason === 'not_in_group'">The Flowra chat is not turned on for you. An administrator adds you to the group "Flowra: chat".</t>
+                <t t-else="">This database is not connected to Flowra yet.</t>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="flowra.ChatBubble">
+        <div t-if="visible" class="o_flowra_bubble" t-att-class="{ 'o_flowra_bubble_expanded': state.expanded }">
+            <div t-if="state.opened" class="o_flowra_bubble_panel shadow" t-att-class="{ 'd-none': !state.open }">
+                <div class="o_flowra_bubble_head d-flex align-items-center px-3 py-2">
+                    <b class="me-auto">Flowra</b>
+                    <button class="btn btn-link btn-sm p-0" t-on-click="toggle" aria-label="Close the Flowra chat">✕</button>
+                </div>
+                <iframe t-ref="frame" class="o_flowra_chat_frame border-0" t-att-src="state.config.src" title="Flowra chat" allow="clipboard-write" referrerpolicy="strict-origin-when-cross-origin"/>
+            </div>
+            <button class="o_flowra_bubble_launcher btn btn-primary rounded-circle shadow" t-on-click="toggle" t-att-aria-expanded="state.open ? 'true' : 'false'" aria-label="Open the Flowra chat" title="Flowra chat">
+                <i class="fa fa-comments" aria-hidden="true"/>
+            </button>
+        </div>
+    </t>
+</templates>

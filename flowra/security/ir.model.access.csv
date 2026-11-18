@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_flowra_connection_system,flowra.connection system,model_flowra_connection,base.group_system,1,1,1,1

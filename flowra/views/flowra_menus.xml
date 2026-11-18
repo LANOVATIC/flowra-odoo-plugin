@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Part of Flowra. See LICENSE file for full copyright and licensing details. -->
+<odoo>
+    <record id="action_flowra_signals" model="ir.actions.act_window">
+        <field name="name">Flowra signals</field>
+        <field name="res_model">mail.activity</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain" eval="[('activity_type_id', '=', ref('flowra.mail_activity_type_flowra'))]"/>
+        <field name="context">{'create': False}</field>
+    </record>
+
+    <menuitem id="menu_flowra_root" name="Flowra" web_icon="flowra,static/description/icon.png" sequence="90" action="action_flowra_dashboard"/>
+    <menuitem id="menu_flowra_dashboard" name="Dashboard" parent="menu_flowra_root" action="action_flowra_dashboard" sequence="10" groups="base.group_system,purchase.group_purchase_manager"/>
+    <menuitem id="menu_flowra_chat" name="Chat" parent="menu_flowra_root" action="action_flowra_chat" sequence="15" groups="flowra.group_flowra_chat"/>
+    <menuitem id="menu_flowra_signals" name="Signals" parent="menu_flowra_root" action="action_flowra_signals" sequence="20"/>
+    <menuitem id="menu_flowra_connection" name="Connection" parent="menu_flowra_root" action="action_flowra_connection" sequence="90" groups="base.group_system"/>
+</odoo>

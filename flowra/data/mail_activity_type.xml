@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Part of Flowra. See LICENSE file for full copyright and licensing details. -->
+<odoo>
+    <!-- Flowra's findings arrive as activities of this type, so a team can filter them. -->
+    <record id="mail_activity_type_flowra" model="mail.activity.type">
+        <field name="name">Flowra</field>
+        <field name="icon">fa-line-chart</field>
+        <field name="category">default</field>
+        <field name="delay_count">0</field>
+    </record>
+</odoo>
