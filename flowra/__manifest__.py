@@ -34,7 +34,7 @@ This app adds the connection, a dashboard, the Flowra chat and a Flowra activity
             "flowra/static/src/flowra.css",
         ],
     },
-    "images": ["static/description/icon.png"],
+    "images": ["static/description/screenshot_dashboard.png"],
     "application": True,
     "uninstall_hook": "uninstall_hook",
     "external_dependencies": {"python": ["requests"]},
