@@ -1,0 +1,72 @@
+<section style="max-width:960px;margin:0 auto;padding:24px 16px;font-family:Roboto,'Helvetica Neue',Arial,sans-serif;color:#1f2933;line-height:1.55">
+
+  <div style="text-align:center;padding:16px 0 28px">
+    <img src="icon.png" alt="Flowra" style="width:96px;height:96px;border-radius:18px"/>
+    <h1 style="font-size:34px;margin:16px 0 8px;color:#0f172a">Flowra for Odoo</h1>
+    <p style="font-size:19px;margin:0 auto;max-width:680px;color:#475569">
+      Demand forecasts, stock-risk signals and purchase orders you approve, inside Odoo.
+    </p>
+    <p style="margin-top:14px;color:#64748b">Odoo 17, 18 and 19 &middot; Community and Enterprise &middot; Free app, LGPL-3</p>
+  </div>
+
+  <h2 style="font-size:24px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:6px">What it does</h2>
+  <p>
+    <a href="https://flowra.lanovatic.com" target="_blank" rel="noopener" style="color:#2563eb">Flowra</a>
+    reads your sales, purchases, products and stock through Odoo's external API, forecasts demand and
+    flags stock at risk. Whatever it proposes lands in Odoo's own objects: draft purchase orders,
+    activities and internal notes. Nothing is ordered until someone in your team approves it.
+  </p>
+
+  <div style="display:flex;flex-wrap:wrap;gap:16px;margin:20px 0 8px">
+    <div style="flex:1 1 280px;border:1px solid #e2e8f0;border-radius:10px;padding:16px 18px">
+      <h3 style="font-size:18px;margin:0 0 6px;color:#0f172a">One-click connect</h3>
+      <p style="margin:0">An administrator clicks <b>Connect</b> and approves in Flowra. No password is typed or shared:
+      the app creates a dedicated Flowra user and an API key for it, and sends the key to Flowra directly.</p>
+    </div>
+    <div style="flex:1 1 280px;border:1px solid #e2e8f0;border-radius:10px;padding:16px 18px">
+      <h3 style="font-size:18px;margin:0 0 6px;color:#0f172a">Dashboard</h3>
+      <p style="margin:0">Connection and sync status, forecasts, draft purchase orders and open signals,
+      for administrators and purchase managers.</p>
+    </div>
+    <div style="flex:1 1 280px;border:1px solid #e2e8f0;border-radius:10px;padding:16px 18px">
+      <h3 style="font-size:18px;margin:0 0 6px;color:#0f172a">Chat inside Odoo</h3>
+      <p style="margin:0">Ask Flowra about your sales, stock and suppliers from any Odoo screen, as a bubble or
+      a full page. Each person signs in with their own Flowra account; a security group decides who sees it.</p>
+    </div>
+    <div style="flex:1 1 280px;border:1px solid #e2e8f0;border-radius:10px;padding:16px 18px">
+      <h3 style="font-size:18px;margin:0 0 6px;color:#0f172a">Signals as Odoo activities</h3>
+      <p style="margin:0">Flowra's signals arrive as activities of type <b>Flowra</b> on the product, contact or
+      purchase order they concern, assigned to a person in your team, and listed under <b>Flowra &rarr; Signals</b>.</p>
+    </div>
+  </div>
+
+  <h2 style="font-size:24px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:6px;margin-top:32px">Getting started</h2>
+  <ol style="padding-left:22px">
+    <li>Install the app (it depends on Purchase, Inventory and Discuss).</li>
+    <li>Open <b>Flowra &rarr; Connection</b> and click <b>Connect</b>.</li>
+    <li>Sign in to Flowra (or create an account) and approve the connection.</li>
+    <li>Back in Odoo, the connection shows as active. Flowra runs its first sync, and the dashboard fills in.</li>
+  </ol>
+
+  <h2 style="font-size:24px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:6px;margin-top:32px">Access and data</h2>
+  <ul style="padding-left:22px">
+    <li>Flowra uses a dedicated internal user, <code>flowra-connector</code>, with read access to sales, purchases,
+    inventory and invoicing, and user rights on purchase and inventory. <b>On Odoo Enterprise it counts as one user.</b></li>
+    <li>That user cannot edit products or contacts. The app gives it exactly two extra writes, on products, contacts and
+    purchase orders only: schedule a Flowra activity and post an internal note. Activities from Flowra send no email.</li>
+    <li>The app stores no business data of its own. Disconnecting or uninstalling deletes the API key and archives the Flowra user.</li>
+  </ul>
+
+  <h2 style="font-size:24px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:6px;margin-top:32px">Requirements</h2>
+  <ul style="padding-left:22px">
+    <li>A Flowra account: <a href="https://flowra.lanovatic.com" target="_blank" rel="noopener" style="color:#2563eb">flowra.lanovatic.com</a>.</li>
+    <li>Odoo 17.0, 18.0 or 19.0, on premise or Odoo.sh, reachable from the internet over https.</li>
+    <li>On Odoo Online, where third-party apps cannot be installed, connect from Flowra directly instead
+    (Flowra &rarr; Sources &rarr; Odoo).</li>
+  </ul>
+
+  <div style="margin-top:32px;padding:18px;border-radius:10px;background:#f1f5f9;text-align:center">
+    Questions or help: <a href="mailto:contact@lanovatic.com" style="color:#2563eb">contact@lanovatic.com</a>
+    &middot; <a href="https://flowra.lanovatic.com/p/odoo.html" target="_blank" rel="noopener" style="color:#2563eb">flowra.lanovatic.com/p/odoo.html</a>
+  </div>
+</section>
