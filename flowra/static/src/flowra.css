@@ -1,0 +1,15 @@
+/* Part of Flowra. See LICENSE file for full copyright and licensing details. */
+.o_flowra_bubble { position: fixed; right: 20px; bottom: 20px; z-index: 1050; }
+.o_flowra_bubble_launcher { width: 52px; height: 52px; font-size: 20px; }
+.o_flowra_bubble_panel {
+    position: absolute; right: 0; bottom: 64px; width: 380px; height: min(620px, calc(100vh - 120px));
+    display: flex; flex-direction: column; background: var(--o-view-background-color, #fff);
+    border-radius: 10px; overflow: hidden;
+}
+.o_flowra_bubble_expanded .o_flowra_bubble_panel { width: min(760px, calc(100vw - 40px)); }
+.o_flowra_bubble_head { border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
+.o_flowra_bubble_panel .o_flowra_chat_frame { flex: 1 1 auto; width: 100%; }
+.o_flowra_chat_page .o_flowra_chat_frame { width: 100%; min-height: 400px; }
+@media (max-width: 600px) {
+    .o_flowra_bubble_panel { width: calc(100vw - 24px); right: -8px; }
+}
