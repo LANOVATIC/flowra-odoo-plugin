@@ -9,6 +9,8 @@ reads `odoo.release`:
 * `@route(type='json')` is current on 17/18 and a deprecated alias of `'jsonrpc'` on 19.
 * The backend lives at `/web` on 17 and `/odoo` from 18.
 * `res.users.groups_id` is `group_ids` on 19 (ODOO-PLUGIN-b, measured on fresh images).
+* `product.packaging` is gone on 19: a pack is a unit of measure (`uom.uom`, `relative_factor`
+  over the product's unit) listed in the product's `uom_ids` (ODOO-PLUGIN-j2).
 """
 
 from odoo import release
@@ -20,6 +22,9 @@ JSON_ROUTE = "jsonrpc" if MAJOR >= 19 else "json"
 
 #: Path of the backend client on this series.
 BACKEND_PATH = "/odoo" if MAJOR >= 18 else "/web"
+
+#: Odoo 19 models a pack as a unit of measure, not as a `product.packaging` row.
+PACK_IS_UOM = MAJOR >= 19
 
 #: The many2many from a user to their groups.
 USER_GROUPS_FIELD = "group_ids" if MAJOR >= 19 else "groups_id"

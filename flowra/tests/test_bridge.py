@@ -2,6 +2,8 @@
 from odoo.exceptions import AccessError, UserError
 from odoo.tests import TransactionCase, tagged
 
+from odoo.addons.flowra import compat
+
 
 @tagged("post_install", "-at_install")
 class TestBridge(TransactionCase):
@@ -25,7 +27,7 @@ class TestBridge(TransactionCase):
             self.env["flowra.bridge"].with_user(clerk).post_note("res.partner", self.partner.id, "x")
 
     def test_capabilities(self):
-        self.assertEqual(self.Bridge.capabilities()["actions"], ["schedule_activity", "post_note"])
+        self.assertEqual(self.Bridge.capabilities()["actions"], ["schedule_activity", "post_note", "ensure_packaging"])
 
     def test_an_activity_lands_typed_and_on_a_person(self):
         self.env["ir.config_parameter"].sudo().set_param("flowra.connected_by_uid", str(self.env.ref("base.user_admin").id))
@@ -68,3 +70,26 @@ class TestBridge(TransactionCase):
         self.assertEqual(message.subtype_id, self.env.ref("mail.mt_note"))
         self.assertEqual(message.author_id, self.service.partner_id)
         self.assertIn("late again", message.body)
+
+    def test_a_pack_is_found_by_its_size_and_created_once(self):
+        first = self.Bridge.ensure_packaging(self.product.id, 6, "Frd ×6")
+        again = self.Bridge.ensure_packaging(self.product.id, 6.0, "renamed")
+        self.assertEqual(first, again)
+        if compat.PACK_IS_UOM:
+            uom = self.env["uom.uom"].browse(first)
+            self.assertEqual(uom.relative_uom_id, self.product.uom_id)
+            self.assertEqual(uom.relative_factor, 6.0)
+            self.assertIn(uom, self.product.uom_ids)
+        else:
+            packaging = self.env["product.packaging"].browse(first)
+            self.assertEqual((packaging.product_id, packaging.qty, packaging.purchase), (self.product, 6.0, True))
+        self.assertNotEqual(self.Bridge.ensure_packaging(self.product.id, 12, "Frd ×12"), first)
+
+    def test_a_pack_of_one_is_refused(self):
+        with self.assertRaises(UserError):
+            self.Bridge.ensure_packaging(self.product.id, 1, "single")
+
+    def test_only_the_flowra_user_may_create_a_pack(self):
+        clerk = self.env["res.users"].create({"name": "Clerk", "login": "clerk-pack"})
+        with self.assertRaises(AccessError):
+            self.env["flowra.bridge"].with_user(clerk).ensure_packaging(self.product.id, 6, "x")
